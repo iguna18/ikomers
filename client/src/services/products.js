@@ -1,17 +1,14 @@
 import axios from 'axios'
 
-// const baseUrl = 'https://fakestoreapi.com/'
-const baseUrl = 'https://localhost:3001'
+const baseUrl = 'http://localhost:3001'
 
 const getAllProducts = () => {
   return (
-    // axios.get(baseUrl+'/products/')
-    // .then(response => {
-    //   console.log(response.data);
-    //   return response.data
-    // })
-    fetch(baseUrl+'/products')
-    .then(res => console.log(res.json()))
+    axios.get(baseUrl+'/products/')
+    .then(response => {
+      console.log(response.data);
+      return response.data
+    })
   )
 }
 

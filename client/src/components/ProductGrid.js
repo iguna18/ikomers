@@ -1,25 +1,23 @@
-import React, { useState } from 'react';
+import './ProductGrid.css'
+import React, { useEffect, useState } from 'react';
+import { Product } from './Product';
 import productService from '../services/products';
-import { StyledGrid } from './styles/ProductGrid.styled';
 
 export const ProductGrid = () => {
   const [products, setProducts] = useState([])
-  productService
-    .getAllProducts()
-    .then(ps => {
-      setProducts(ps)
-    })
-    .catch((error) => {
-      console.log(error.message)
-    })
-
+  useEffect(() => {
+    productService
+      .getAllProducts()
+      .then(ps => {
+        setProducts(ps)
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  }, [])
   return (
-    <StyledGrid>
-      {products.map(p => {
-        return (
-          <div>p.name</div>
-        )
-      })}
-    </StyledGrid>
+    <div className='grid'>
+      { products.map(p => <Product p={p} key={p.id}/>) }
+    </div>
   )
 }

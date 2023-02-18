@@ -1,6 +1,6 @@
 import logo from './logo.svg';
-import './App.css';
-import Navbar from './components/navbar';
+// import './App.css';
+// import Navbar from './components/Navbar';
 import { ProductGrid } from './components/ProductGrid';
 
 function App() {
