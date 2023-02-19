@@ -4,13 +4,16 @@ import styled from 'styled-components';
 
 const styles = {
   Div: styled.div`
-    width: fit-content;
+    /* width: fit-content; */
+    width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: row;
     position: block;
   `,
-  Input: styled.input``,
+  Input: styled.input`
+    width: 100%;
+  `,
   Button: styled.button`
     flex:1;
     /* width: 100%; */

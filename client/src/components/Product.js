@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { NumberInput } from './NumberInput';
-
+import _enum from '../enum';
 const styles = {
   Item: styled.div`
     padding: 5%;
@@ -14,20 +14,20 @@ const styles = {
   `,
   VisibleSection: styled.div`
   `,
-  // ${props => props.isHovered?'display: block;':'display: none'};
   HiddenSection: styled.div`
-    display: none;
+     ${props => !props.isHovered?'visibility: hidden;':''};
     position: absolute;
     z-index: 2;
     top:100%;
     left: 0;
     background-color: white;
-    height: fit-content;
+    height: 50px;
     box-shadow: 3px 3px 3px, -3px 3px 3px;
     border-top: 0;
-    display: flex;
     width: 100%;
-    background-color: black;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
   `,
   Img: styled.img`
     width: 100%;
@@ -35,24 +35,47 @@ const styles = {
   GreenButton: styled.button`
     background-color: green;
     text-transform: uppercase;
-    flex: 5;
+    color: white;
+    padding: 0 15%;
+    border-radius: 30px;
   `,
   GrayButton: styled.button`
-  display: block;
+    display: block;
     background-color: lightgray;
-    flex: 5;
+    padding: 15%;
+    border-radius: 30px;
   `,
   InputDiv: styled.div`
     /* width: 20%; */
     flex: 1;
     /* width:10px; */
     /* position: relative; */
+  `,
+  InputTypeNumber: styled.input`
+    width: 100%;
+  `,
+  FlexItem:styled.div`
+    flex:1;
+    max-width:100%; 
+    display:grid; 
+    place-items:center; 
+    /* background-color:red;  */
+    height:100%;
   `
 }
 
-export const Product = ({ p }) => {
+export const Product = ({ p, onClickAddToCart, onClickQuickPurchase }) => {
   const [quantity, setQuantity] = useState(1)
   const [isHovered, setIsHovered] = useState(false)
+  const [cart, setCart] = useState([])
+
+  useEffect(()=> {
+    
+  },[])
+
+  const onQuantityChange = (event) => {
+    setQuantity(event.target.value)
+  }
 
   return (
     <styles.Item key={p.id}  onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
@@ -63,15 +86,22 @@ export const Product = ({ p }) => {
         {p.description}
       </styles.VisibleSection>
       
-      <styles.HiddenSection isHovered={false}>
-        <styles.InputDiv>
-          
-          <NumberInput value={quantity} setValue={setQuantity}/>
-        </styles.InputDiv>
-        <styles.GrayButton>^</styles.GrayButton>
-        <styles.GreenButton>შეიძინე</styles.GreenButton>
+      <styles.HiddenSection isHovered={isHovered}>
+        <styles.FlexItem>
+        <input type='number' style={{width:'60%',height:'60%'}} value={quantity} onChange={onQuantityChange}/>
+        </styles.FlexItem>
+        <styles.FlexItem>
+        <styles.GreenButton onClick={onClickAddToCart(p, quantity, setIsHovered)}>შეიძინე</styles.GreenButton>
+        </styles.FlexItem>
+        <styles.FlexItem>
+        <styles.GrayButton onClick={onClickQuickPurchase(p, setIsHovered)}>^</styles.GrayButton>
+        </styles.FlexItem>
       </styles.HiddenSection>
-      
     </styles.Item>
   )
 }
+        
+        /* <input type='number' value={quantity} onChange={
+          (e) => setQuantity(e.target.value)
+        }/> */
+        /* <NumberInput value={quantity} setValue={setQuantity}/> */
