@@ -22,7 +22,7 @@ const styles = {
     left: 0;
     background-color: white;
     height: 50px;
-    box-shadow: 3px 3px 3px, -3px 3px 3px;
+    box-shadow: 3px 3px 10px, -3px 3px 10px;
     border-top: 0;
     width: 100%;
     background-color: white;
@@ -67,11 +67,6 @@ const styles = {
 export const Product = ({ p, onClickAddToCart, onClickQuickPurchase }) => {
   const [quantity, setQuantity] = useState(1)
   const [isHovered, setIsHovered] = useState(false)
-  const [cart, setCart] = useState([])
-
-  useEffect(()=> {
-    
-  },[])
 
   const onQuantityChange = (event) => {
     setQuantity(event.target.value)
@@ -91,7 +86,9 @@ export const Product = ({ p, onClickAddToCart, onClickQuickPurchase }) => {
         <input type='number' style={{width:'60%',height:'60%'}} value={quantity} onChange={onQuantityChange}/>
         </styles.FlexItem>
         <styles.FlexItem>
-        <styles.GreenButton onClick={onClickAddToCart(p, quantity, setIsHovered)}>შეიძინე</styles.GreenButton>
+        <styles.GreenButton onClick={
+          parseInt(quantity) > 0 && onClickAddToCart(p, parseInt(quantity), setIsHovered)
+        }>შეიძინე</styles.GreenButton>
         </styles.FlexItem>
         <styles.FlexItem>
         <styles.GrayButton onClick={onClickQuickPurchase(p, setIsHovered)}>^</styles.GrayButton>

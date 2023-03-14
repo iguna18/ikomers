@@ -4,7 +4,8 @@ import { Product } from './Product';
 import productService from '../services/products';
 import _enum from '../enum';
 
-export const ProductGrid = ({setIsPopupOpen, setPopupContentN, setPopupProps, cart}) => {
+
+export const ProductGrid = ({setIsPopupOpen, setPopupContentN, setPopupProps, cart, addToCart}) => {
   const onClickAddToCart = (p, quantity, setIsHovered) => (e) => {
     setIsHovered(false)
     setIsPopupOpen(true)
@@ -14,11 +15,12 @@ export const ProductGrid = ({setIsPopupOpen, setPopupContentN, setPopupProps, ca
       name:p.name,
       id:p.id,
       quantity:quantity,
-      unitPrice:p.price
+      unitPrice:p.unitPrice
     })
-    setTimeout(()=>{
-      setIsPopupOpen(false)
-    }, 3500)
+    addToCart(p.id, quantity, p.unitPrice)
+    // setTimeout(()=>{
+    //   setIsPopupOpen(false)
+    // }, 3500)
   }
   const onClickQuickPurchase = (p, setIsHovered) => (e) => {
     setIsHovered(false)
